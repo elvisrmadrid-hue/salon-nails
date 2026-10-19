@@ -14,9 +14,9 @@ Página web de una sola página para un salón de uñas: inicio, servicios con p
 | Tailwind CSS | 3.4 | Estilos |
 | sharp | 0.32 | Optimización de imágenes en producción |
 
-No hay más dependencias: los iconos son SVG en línea y las fuentes (Cormorant Garamond y Jost) se cargan con `next/font`, que las aloja junto al sitio.
+No hay más dependencias: los iconos son SVG en línea y las fuentes (Cormorant Garamond y Jost, licencia OFL) están incluidas en `src/assets/fonts/` y se cargan con `next/font/local`. No se descargan al compilar porque Next 13.5 falla al bajar Google Fonts con Node 19 o superior.
 
-**Requisito:** Node.js **16.14 o superior**. Se usa Next.js 13.5 porque es compatible con Node 16. Si actualizas a Node 20 o superior (recomendado), puedes migrar después a Next.js 14/15.
+**Requisito:** Node.js **16.14 a 22**. Se usa Next.js 13.5 porque es compatible con Node 16. El campo `engines` de `package.json` hace que Vercel compile con Node 22. Si actualizas a Node 20 o superior (recomendado), puedes migrar después a Next.js 14/15.
 
 ## Instalación y ejecución
 
