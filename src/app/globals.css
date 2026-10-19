@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-cream font-sans text-ink antialiased;
+  }
+
+  /* Compensa la cabecera fija al saltar a una sección. */
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  ::selection {
+    @apply bg-blush-200 text-ink;
+  }
+
+  :focus-visible {
+    outline: 2px solid theme("colors.blush.700");
+    outline-offset: 3px;
+  }
+
+  dialog::backdrop {
+    background: rgba(35, 26, 26, 0.88);
+    backdrop-filter: blur(4px);
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply flex items-center gap-3 text-xs font-medium uppercase tracking-[0.25em] text-gold-700;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply h-px w-8 bg-gold-500;
+  }
+
+  .field-input {
+    @apply w-full rounded-xl border border-nude-300 bg-white px-4 py-3 text-base text-ink transition placeholder:text-ink-soft/60 focus:border-blush-500 focus:outline-none focus:ring-4 focus:ring-blush-100;
+  }
+  .field-input[aria-invalid="true"] {
+    @apply border-red-600 focus:ring-red-100;
+  }
+
+  .link-underline {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size 0.3s ease, color 0.3s ease;
+  }
+  .link-underline:hover,
+  .link-underline[aria-current] {
+    background-size: 100% 1px;
+  }
+}
+
+/* Animación de entrada al hacer scroll (ver RevealObserver). Sin JS, todo es visible. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js [data-reveal][data-revealed] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
